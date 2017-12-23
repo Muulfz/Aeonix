@@ -1,68 +1,81 @@
 ﻿using CitizenFX.Core;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WeRP
+namespace Aeonix
 {
 	public class ModuleBase
 	{
-		public Dictionary<String, Command> commands = new Dictionary<String, Command>();
-		public Dictionary<String, Dictionary<String, dynamic>> handlers = new Dictionary<String, Dictionary<String, dynamic>>();
-		public String name = "";
+		public Dictionary<String, CommandBase> Commands = new Dictionary<String, CommandBase>();
+		public Dictionary<String, Dictionary<String, dynamic>> Handlers = new Dictionary<String, Dictionary<String, dynamic>>();
+		public String Name = "";
 
-		public Dictionary<String, Command> getCommands()
+		public Dictionary<String, CommandBase> GetCommands()
 		{
-			return this.commands;
+			return this.Commands;
 		}
 
-		public Dictionary<String, Dictionary<String, dynamic>> getHandlers()
+		public Dictionary<String, Dictionary<String, dynamic>> GetHandlers()
 		{
-			return this.handlers;
+			return this.Handlers;
 		}
 
-		public String getName()
+		public String GetName()
 		{
-			return this.name;
+			return this.Name;
 		}
 
-		public void init(String name)
+		public void Init(String name)
 		{
-			Debug.WriteLine("Initializing module: " + this.getName());
-			this.setName(name);
+			this.SetName(name);
+			Debug.WriteLine("Initializing module: " + this.GetName());
 		}
 
-		public void registerCommands()
+		public void Init(String name, Dictionary<String, CommandBase> commands)
 		{
-			Dictionary<String, Command> commands = this.getCommands();
+			this.SetName(name);
+			Debug.WriteLine("Initializing module: " + this.GetName());
 
-			foreach (KeyValuePair<String, Command> command in commands)
+			foreach(KeyValuePair<String, CommandBase> command in commands)
 			{
-				Debug.WriteLine("[Module: " + this.getName() + "] Registering command: " + command.Key);
-				Core.getInstance().registerCommand(command.Key, command.Value);
+				Debug.WriteLine("[" + this.GetName() + "] Added " + command.Key + " command to module");
+				this.Commands.Add(command.Key, command.Value);
+			}
+
+			this.RegisterCommands();
+		}
+
+		public void RegisterCommands()
+		{
+			Dictionary<String, CommandBase> commands = this.GetCommands();
+
+			foreach (KeyValuePair<String, CommandBase> command in commands)
+			{
+				Debug.WriteLine("[Module: " + this.GetName() + "] Registering command: " + command.Key);
+				Core.GetInstance().RegisterCommand(command.Key, command.Value);
 			}
 		}
 
-		public void registerHandler(String type, String key, dynamic value)
+		public void RegisterHandler(String type, String key, dynamic value)
 		{
-			Dictionary<String, dynamic> objectValue = new Dictionary<string, dynamic>();
-			objectValue.Add(key, value);
+			Dictionary<String, dynamic> objectValue = new Dictionary<string, dynamic>
+			{
+				{ key, value }
+			};
 
-			foreach (KeyValuePair<String, Dictionary<String, dynamic>> searchKey in this.handlers)
+			foreach (KeyValuePair<String, Dictionary<String, dynamic>> searchKey in this.Handlers)
 			{
 				if (searchKey.Key == type)
 				{
-					this.handlers.Add(searchKey.Key, objectValue);
+					this.Handlers.Add(searchKey.Key, objectValue);
 					break;
 				}
 			}
 		}
 
-		public void setName(String name)
+		public void SetName(String name)
 		{
-			this.name = name;
+			this.Name = name;
 		}
 	}
 }

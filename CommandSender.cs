@@ -1,40 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WeRP
+namespace Aeonix
 {
 	class CommandSender
 	{
-		private int playerId = 0;
-		private String playerName = "";
+		private int PlayerId = 0;
+		private String PlayerName = "";
 
 		public CommandSender(int playerId, String playerName)
 		{
-			this.setPlayerId(playerId);
-			this.setPlayerName(playerName);
+			this.SetPlayerId(playerId);
+			this.SetPlayerName(playerName);
 		}
 
-		public int getPlayerId()
+		public int GetPlayerId()
 		{
-			return this.playerId;
+			return this.PlayerId;
 		}
 
-		public String getPlayerName()
+		public String GetPlayerName()
 		{
-			return this.playerName;
+			return this.PlayerName;
 		}
 
-		public void setPlayerId(int playerId)
+		public void SetPlayerId(int playerId)
 		{
-			this.playerId = playerId;
+			this.PlayerId = playerId;
 		}
 
-		public void setPlayerName(String playerName)
+		public void SetPlayerName(String playerName)
 		{
-			this.playerName = playerName;
+			this.PlayerName = playerName;
 		}
 	}
 }

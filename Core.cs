@@ -1,76 +1,74 @@
 ﻿using CitizenFX.Core;
-using CitizenFX.Core.Native;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 
-namespace WeRP
+namespace Aeonix
 {
 	public class Core
 	{
-		private Dictionary<String, Command> commands = new Dictionary<String, Command>() { };
-		private Dictionary<String, ModuleBase> modules = new Dictionary<String, ModuleBase>() { };
-		private Version version = new Version(1, 0, 1);
+		private Dictionary<String, CommandBase> Commands = new Dictionary<String, CommandBase>() { };
+		private Dictionary<String, ModuleBase> Modules = new Dictionary<String, ModuleBase>() { };
+		private Version Version = new Version(1, 0, 1);
 
-		public static Core instance = null;
+		public static Core Instance = null;
 
-		public Command getCommand(String command)
+		public CommandBase GetCommand(String command)
 		{
-			this.commands.TryGetValue(command, out Command foundCommand);
+			this.Commands.TryGetValue(command, out CommandBase foundCommand);
 			return foundCommand;
 		}
 
-		public Dictionary<String, Command> getCommands()
+		public Dictionary<String, CommandBase> GetCommands()
 		{
-			return this.commands;
+			return this.Commands;
 		}
 
-		public static Core getInstance()
+		public static Core GetInstance()
 		{
-			if (instance == null)
+			if (Instance == null)
 			{
-				instance = new Core();
+				Instance = new Core();
 			}
 
-			return instance;
+			return Instance;
 		}
 
-		public ModuleBase getModule(String key)
+		public ModuleBase GetModule(String key)
 		{
 			ModuleBase value = null;
-			this.modules.TryGetValue(key, out value);
+			this.Modules.TryGetValue(key, out value);
 			return value;
 		}
 
-		public Dictionary<String, ModuleBase> getModules()
+		public Dictionary<String, ModuleBase> GetModules()
 		{
-			return this.modules;
+			return this.Modules;
 		}
 
-		public String getVersion(bool asCode = false)
+		public String GetVersion(bool asCode = false)
 		{
 			if (asCode)
 			{
-				return this.version.Major.ToString() + this.version.Minor.ToString() + this.version.Revision.ToString();
+				return this.Version.Major.ToString() + this.Version.Minor.ToString() + this.Version.Revision.ToString();
 			}
 			else
 			{
-				return this.version.ToString();
+				return this.Version.ToString();
 			}
 		}
 
-		public bool hasCommand(String command)
+		public bool HasCommand(String command)
 		{
-			return this.commands.TryGetValue(command, out Command foundCommand);
+			return this.Commands.TryGetValue(command, out CommandBase foundCommand);
 		}
 
-		public bool hasModule(String key)
+		public bool HasModule(String key)
 		{
-			return this.modules.TryGetValue(key, out ModuleBase value);
+			return this.Modules.TryGetValue(key, out ModuleBase value);
 		}
 
-		public void loadModules(Type type)
+		public void LoadModules(Type type)
 		{
 			Debug.WriteLine("Loading modules..");
 
@@ -115,7 +113,7 @@ namespace WeRP
 				Debug.WriteLine("Module registered: " + moduleName);
 
 				registeredModules++;
-				Core.getInstance().registerModule(moduleName, moduleObject);
+				Core.GetInstance().RegisterModule(moduleName, moduleObject);
 			}
 
 			if (registeredModules == modules.Count)
@@ -128,24 +126,24 @@ namespace WeRP
 			}
 		}
 
-		public void registerCommand(String key, Command value)
+		public void RegisterCommand(String key, CommandBase value)
 		{
-			this.commands.Add(key, value);
+			this.Commands.Add(key, value);
 		}
 
-		public void registerModule(String key, ModuleBase value)
+		public void RegisterModule(String key, ModuleBase value)
 		{
-			this.modules.Add(key, value);
+			this.Modules.Add(key, value);
 		}
 
-		public void unregisterCommand(String key)
+		public void UnregisterCommand(String key)
 		{
-			this.commands.Remove(key);
+			this.Commands.Remove(key);
 		}
 
-		public void unregisterModule(String key)
+		public void UnregisterModule(String key)
 		{
-			this.modules.Remove(key);
+			this.Modules.Remove(key);
 		}
 	}
 }
