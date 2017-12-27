@@ -126,6 +126,26 @@ namespace Aeonix
 			}
 		}
 
+		public static void Log(String message, String prefix = "")
+		{
+			if (prefix == "")
+			{
+				prefix = "[Core] ";
+			}
+
+			Debug.WriteLine(prefix + message);
+		}
+
+		public static void LogClient(String message, String prefix = "")
+		{
+			Core.Log(message, "[Client] " + prefix);
+		}
+
+		public static void LogServer(String message, String prefix = "")
+		{
+			Core.Log(message, "[Server] " + prefix);
+		}
+
 		public void RegisterCommand(String key, CommandBase value)
 		{
 			this.Commands.Add(key, value);

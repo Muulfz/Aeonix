@@ -20,9 +20,16 @@ namespace Aeonix
 			return this.Handler;
 		}
 
-		public String GetName()
+		public String GetName(bool forUse = false)
 		{
-			return this.Name;
+			String name = this.Name;
+
+			if (forUse)
+			{
+				name = name.ToLower().Replace(" ", "");
+			}
+
+			return name;
 		}
 
 		public String GetUsageResponse()
@@ -32,23 +39,15 @@ namespace Aeonix
 				return this.UsageResponse;
 			}
 
-			return "/" + this.GetName().ToLower();
+			return "/" + this.GetName(true);
 		}
 
 		public void Init(String name, String description = "", String usageResponse = "")
 		{
 			this.SetHandler();
 			this.SetName(name);
-
-			if (description != "")
-			{
-				this.SetDescription(description);
-			}
-
-			if (usageResponse != "")
-			{
-				this.SetUsageResponse(usageResponse);
-			}
+			this.SetDescription(description);
+			this.SetUsageResponse(usageResponse);
 		}
 
 		public abstract bool Process(List<String> args);
@@ -59,6 +58,11 @@ namespace Aeonix
 
 		public void SetDescription(String description)
 		{
+			if (description == "")
+			{
+				return;
+			}
+
 			this.Description = description;
 		}
 
@@ -66,6 +70,7 @@ namespace Aeonix
 		{
 			CommandHandlerBase commandHandler = new CommandHandlerBase();
 			commandHandler.Init(this);
+
 			this.Handler = commandHandler;
 		}
 
@@ -76,6 +81,11 @@ namespace Aeonix
 
 		public void SetUsageResponse(String usageResponse)
 		{
+			if (usageResponse == "")
+			{
+				return;
+			}
+
 			this.UsageResponse = usageResponse;
 		}
 	}
