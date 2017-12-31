@@ -1,4 +1,7 @@
-﻿# Ignore Solution and Project files
+﻿# Ignore dev folder
+dev/*
+
+# Ignore Solution and Project files
 *.csproj
 *.sln
 

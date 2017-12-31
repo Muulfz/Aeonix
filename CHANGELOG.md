@@ -1,5 +1,13 @@
 ﻿# Changelog
-## 1.0.2 (December 27th, 2017)
+## 1.0.3 (December 31st, 2017)
+- Updated `.gitignore`
+- Added methods for logging to client/server (fixes #2)
+  - Changed over all internal logging to use these new methods
+- Added a `Color` utility class, provides base colors for actions, errors, success messages and warnings (fixes #17)
+- Renamed `Util` > `Util.Helper` to prevent naming collisions
+- Removed an unneccesary log message
+
+### 1.0.2 (December 27th, 2017)
 - Moved all document files into their own folder (fixes #16)
 - Fixed command usage not stripping spaces from command names (fixes #15)
 - Added a `Util` class to hold general helper methods

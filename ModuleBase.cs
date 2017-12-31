@@ -1,5 +1,4 @@
-﻿using CitizenFX.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Aeonix
@@ -28,17 +27,17 @@ namespace Aeonix
 		public void Init(String name)
 		{
 			this.SetName(name);
-			Debug.WriteLine("Initializing module: " + this.GetName());
+			Core.Log("Initializing module: " + this.GetName());
 		}
 
 		public void Init(String name, Dictionary<String, CommandBase> commands)
 		{
 			this.SetName(name);
-			Debug.WriteLine("Initializing module: " + this.GetName());
+			Core.Log("Initializing module: " + this.GetName());
 
 			foreach(KeyValuePair<String, CommandBase> command in commands)
 			{
-				Debug.WriteLine("[" + this.GetName() + "] Added " + command.Key + " command to module");
+				Core.Log("[" + this.GetName() + "] Added " + command.Key + " command to module");
 				this.Commands.Add(command.Key, command.Value);
 			}
 
@@ -51,7 +50,7 @@ namespace Aeonix
 
 			foreach (KeyValuePair<String, CommandBase> command in commands)
 			{
-				Debug.WriteLine("[Module: " + this.GetName() + "] Registering command: " + command.Key);
+				Core.Log("[Module: " + this.GetName() + "] Registering command: " + command.Key);
 				Core.GetInstance().RegisterCommand(command.Key, command.Value);
 			}
 		}

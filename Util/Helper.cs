@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Aeonix
+namespace Aeonix.Util
 {
-	public class Util
+	public class Helper
 	{
 		public static String GetZoneFullname(String zone)
 		{

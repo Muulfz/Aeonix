@@ -70,8 +70,6 @@ namespace Aeonix
 
 		public void LoadModules(Type type)
 		{
-			Debug.WriteLine("Loading modules..");
-
 			Assembly assembly = Assembly.GetCallingAssembly();
 			List<String> modules = new List<String>();
 			int registeredModules = 0;
@@ -88,7 +86,6 @@ namespace Aeonix
 
 			if (modules.Count == 0)
 			{
-				Debug.WriteLine("No modules found to load..");
 				return;
 			}
 
@@ -99,18 +96,18 @@ namespace Aeonix
 
 				if (moduleType == null)
 				{
-					Debug.WriteLine("Can't create module object for '" + moduleName + "', class doesn't exist..");
+					Log("Can't create module object for '" + moduleName + "', class doesn't exist..");
 					continue;
 				}
 
 				ModuleBase moduleObject = (ModuleBase)Activator.CreateInstance(moduleType);
 				if (moduleObject == null)
 				{
-					Debug.WriteLine("Module '" + moduleName + "' not registered, couldn't create instance..");
+					Log("Module '" + moduleName + "' not registered, couldn't create instance..");
 					continue;
 				}
 
-				Debug.WriteLine("Module registered: " + moduleName);
+				Log("Module registered: " + moduleName);
 
 				registeredModules++;
 				Core.GetInstance().RegisterModule(moduleName, moduleObject);
@@ -118,11 +115,11 @@ namespace Aeonix
 
 			if (registeredModules == modules.Count)
 			{
-				Debug.WriteLine("All modules registered successfully!");
+				Log("All modules successfully registered!");
 			}
 			else
 			{
-				Debug.WriteLine("Registered " + registeredModules + "/" + modules.Count + " successfully");
+				Log("Registered " + registeredModules + "/" + modules.Count + " successfully");
 			}
 		}
 
@@ -138,12 +135,12 @@ namespace Aeonix
 
 		public static void LogClient(String message, String prefix = "")
 		{
-			Core.Log(message, "[Client] " + prefix);
+			Log(message, "[Client] " + prefix);
 		}
 
 		public static void LogServer(String message, String prefix = "")
 		{
-			Core.Log(message, "[Server] " + prefix);
+			Log(message, "[Server] " + prefix);
 		}
 
 		public void RegisterCommand(String key, CommandBase value)

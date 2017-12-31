@@ -1,4 +1,5 @@
-﻿using CitizenFX.Core;
+﻿using Aeonix.Util;
+using CitizenFX.Core;
 using System;
 using System.Collections.Generic;
 
@@ -54,7 +55,7 @@ namespace Aeonix
 
 			if (command.Equals(null))
 			{
-				Debug.WriteLine(this.GetType().Name + " expects a valid command to be given, none provided..");
+				Core.Log(this.GetType().Name + " expects a valid command to be given, none provided..");
 				return false;
 			}
 
@@ -63,7 +64,7 @@ namespace Aeonix
 
 		public void SendUsageMessage()
 		{
-			BaseScript.TriggerEvent("chatMessage", "[System]", new int[] { 255, 255, 255 }, this.Command.GetUsageResponse());
+			BaseScript.TriggerEvent("chatMessage", "", Color.Default, this.Command.GetUsageResponse());
 		}
 
 		public void SetArgs(List<String> args)
