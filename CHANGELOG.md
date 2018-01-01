@@ -1,5 +1,9 @@
 ﻿# Changelog
-## 1.0.3 (December 31st, 2017)
+## 1.0.4 (January 1st, 2018)
+- Fixed `Core.Log` not adding brackets to prefixes if none were already added
+- Implemented the toggling of logging using a convar (fixes #18)
+
+### 1.0.3 (December 31st, 2017)
 - Updated `.gitignore`
 - Added methods for logging to client/server (fixes #2)
   - Changed over all internal logging to use these new methods

@@ -1,5 +1,12 @@
-﻿# Ignore dev folder
-dev/*
+﻿# Ignore Dev Folder
+Dev/*
+
+# Ignore App/Packages Config
+app.config
+packages.config
+
+# Ignore Specific Document Files
+docs/MySql*.xml
 
 # Ignore Solution and Project files
 *.csproj

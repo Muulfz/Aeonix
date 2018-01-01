@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using CitizenFX.Core.Native;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -8,10 +9,16 @@ namespace Aeonix
 	public class Core
 	{
 		private Dictionary<String, CommandBase> Commands = new Dictionary<String, CommandBase>() { };
+		private static bool DebugMode = false;
 		private Dictionary<String, ModuleBase> Modules = new Dictionary<String, ModuleBase>() { };
 		private Version Version = new Version(1, 0, 1);
 
 		public static Core Instance = null;
+
+		public Core()
+		{
+			DebugMode = (API.GetConvarInt("aeonix_debug", 0) > 0) ? true : false;
+		}
 
 		public CommandBase GetCommand(String command)
 		{
@@ -66,6 +73,11 @@ namespace Aeonix
 		public bool HasModule(String key)
 		{
 			return this.Modules.TryGetValue(key, out ModuleBase value);
+		}
+
+		public static bool InDebugMode()
+		{
+			return DebugMode;
 		}
 
 		public void LoadModules(Type type)
@@ -125,9 +137,21 @@ namespace Aeonix
 
 		public static void Log(String message, String prefix = "")
 		{
+			if (!InDebugMode())
+			{
+				return;
+			}
+
 			if (prefix == "")
 			{
 				prefix = "[Core] ";
+			}
+			else
+			{
+				if (!prefix.Contains("[") && !prefix.Contains("]"))
+				{
+					prefix = "[" + prefix + "] ";
+				}
 			}
 
 			Debug.WriteLine(prefix + message);
